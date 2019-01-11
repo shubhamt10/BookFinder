@@ -15,12 +15,12 @@ Google Books API: https://developers.google.com/books/
 
 ## Main
 
-<img src="images/main.jpg" widht="150">
+<img src="images/main.jpg" width="150">
 
 ## Search Results Activity
 
-<img src="images/list.jpg" widht="150">
+<img src="images/list.jpg" width="150">
 
 ## Book Description Activity
 
-<img src="images/description.jpg" widht="150">
+<img src="images/description.jpg" width="150">
