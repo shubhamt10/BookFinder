@@ -25,133 +25,53 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Book>> {
+public class MainActivity extends AppCompatActivity{
 
     public static final String LOG_TAG = MainActivity.class.getName();
 
-    String url = "https://www.googleapis.com/books/v1/volumes?q=";
+    private static String url = "https://www.googleapis.com/books/v1/volumes?q=";
 
-    private BookAdapter mAdapter;
-    private static final int BOOK_LOADER_ID = 1;
-    private ImageView mEmptyStateView;
+    private EditText searchField;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        View loadingIndicator = findViewById(R.id.loading_indicator);
-        loadingIndicator.setVisibility(View.INVISIBLE);
-
-        mAdapter = new BookAdapter(this, new ArrayList<Book>());
-
-        ListView listView = (ListView) findViewById(R.id.list);
-
-        listView.setAdapter(mAdapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-
-                Book currentBook = mAdapter.getItem(position);
-                String bookTitle = currentBook.getTitle();
-                String bookAuthor = currentBook.getAuthor();
-                String bookDescription = currentBook.getDescription();
-                String bookImage = currentBook.getImageUrl();
-                String bookLink = currentBook.getUrl();
-                String bookPublisher = currentBook.getPublisher();
-                String bookPublishDate = currentBook.getPublishedDate();
-                String bookWebReaderLink = currentBook.getWebReaderLink();
-                int bookPages = currentBook.getPages();
-
-                Intent intent = new Intent(MainActivity.this,InfoActivity.class);
-                intent.putExtra("Title",bookTitle);
-                intent.putExtra("Author",bookAuthor);
-                intent.putExtra("Description",bookDescription);
-                intent.putExtra("Image",bookImage);
-                intent.putExtra("infoLink",bookLink);
-                intent.putExtra("publisher",bookPublisher);
-                intent.putExtra("publishDate",bookPublishDate);
-                intent.putExtra("webReaderLink",bookWebReaderLink);
-                intent.putExtra("pages",bookPages);
-
-                startActivity(intent);
-
-            }
-        });
-
-        final Button searchButton = (Button) findViewById(R.id.search_button);
-
-        mEmptyStateView = (ImageView) findViewById(R.id.empty_view);
-        listView.setEmptyView(mEmptyStateView);
-
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                View loadingIndicator = findViewById(R.id.loading_indicator);
-                loadingIndicator.setVisibility(View.VISIBLE);
-
-                url = "https://www.googleapis.com/books/v1/volumes?q=";
-
-                EditText searchField = (EditText) findViewById(R.id.search_bar);
-                String fullString = searchField.getText().toString();
-
-                final String LOCATION_SEPARATOR = " ";
-
-                if (fullString.contains(LOCATION_SEPARATOR)) {
-                    String[] parts = fullString.split(LOCATION_SEPARATOR);
-                    url += parts[0];
-                    for (int i=1;i<parts.length;i++)
-                    {
-                        url += "+" + parts[i];
-                    }
-                } else {
-                    url += fullString;
-                }
-
-                url += "&maxResults=20";
-
-                ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-                NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-
-                if (networkInfo != null && networkInfo.isConnected()) {
-                    LoaderManager loaderManager = getLoaderManager();
-                    loaderManager.initLoader(BOOK_LOADER_ID, null, MainActivity.this);
-                }
-                else {
-                    mEmptyStateView.setImageResource(R.drawable.images);
-                }
-
-                getLoaderManager().restartLoader(BOOK_LOADER_ID,null,MainActivity.this);
-            }
-        });
+        searchField = findViewById(R.id.search_bar);
 
     }
 
-    @Override
-    public Loader<List<Book>> onCreateLoader(int i, Bundle bundle) {
-        return new BookLoader(this, url);
+    public void search(View view){
 
-    }
+        String fullString = searchField.getText().toString();
 
-    @Override
-    public void onLoadFinished(Loader<List<Book>> loader, List<Book> books) {
+        final String LOCATION_SEPARATOR = " ";
 
-        View loadingIndicator = findViewById(R.id.loading_indicator);
-        loadingIndicator.setVisibility(View.GONE);
-
-        mAdapter.clear();
-
-        if (books != null && !books.isEmpty()) {
-            mAdapter.addAll(books);
+        if (fullString.contains(LOCATION_SEPARATOR)) {
+            String[] parts = fullString.split(LOCATION_SEPARATOR);
+            url += parts[0];
+            for (int i=1;i<parts.length;i++)
+            {
+                url += "+" + parts[i];
+            }
+        } else {
+            url += fullString;
         }
 
+        url += "&maxResults=20";
+
+        System.out.println(url);
+
+        Intent intent = new Intent(MainActivity.this,ListActivity.class);
+        intent.putExtra("url",url);
+        startActivity(intent);
+
     }
 
     @Override
-    public void onLoaderReset(Loader<List<Book>> loader) {
-        mAdapter.clear();
+    protected void onResume() {
+        super.onResume();
+        url = "https://www.googleapis.com/books/v1/volumes?q=";
     }
-
 }

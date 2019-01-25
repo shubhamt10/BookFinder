@@ -42,7 +42,7 @@ public class InfoActivity extends AppCompatActivity{
                     .into(imageView);
         }
         else {
-            imageView.setImageResource(R.drawable.bookicon);
+            imageView.setImageResource(R.drawable.icon);
         }
 
         TextView titleTextView = (TextView) findViewById(R.id.title);
