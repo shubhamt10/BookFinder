@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import java.util.List;
 public class ListActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Book>> {
 
     private BookAdapter mAdapter;
+    private ProgressBar progressBar;
     private static final int BOOK_LOADER_ID = 1;
     private String url;
 
@@ -28,9 +30,14 @@ public class ListActivity extends AppCompatActivity implements LoaderManager.Loa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.listactivity);
 
-        Intent inputintent = getIntent();
-        url = inputintent.getStringExtra("url");
+        progressBar = findViewById(R.id.progress_bar);
 
+        if (savedInstanceState == null) {
+            Intent inputintent = getIntent();
+            url = inputintent.getStringExtra("url");
+        }else {
+            url = savedInstanceState.getString("url");
+        }
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 
@@ -81,6 +88,11 @@ public class ListActivity extends AppCompatActivity implements LoaderManager.Loa
 
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("url",url);
+    }
 
     @Override
     public Loader<List<Book>> onCreateLoader(int i, Bundle bundle) {
@@ -91,6 +103,7 @@ public class ListActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoadFinished(Loader<List<Book>> loader, List<Book> books) {
 
+        progressBar.setVisibility(View.GONE);
         mAdapter.clear();
 
         if (books != null && !books.isEmpty()) {
