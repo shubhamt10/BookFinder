@@ -15,18 +15,18 @@ Google Books API: https://developers.google.com/books/
 
 ## Main
 
-<img src="images/main.jpg" width="150">
+<img src="home.jpg" width="150">
 
 ## Search Results Activity
 
-<img src="images/list.jpg" width="150">
+<img src="list.jpg" width="150">
 
 ## Book Description Activity
 
-<img src="images/description.jpg" width="150">
+<img src="description.jpg" width="150">
 
 ## Demonstration : (click to play)
 
-[![bookfinder]()](https://vimeo.com/310795707)
+[![bookfinder]()](https://vimeo.com/313331982)
 
 
