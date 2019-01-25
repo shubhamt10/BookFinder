@@ -30,7 +30,6 @@ public class InfoActivity extends AppCompatActivity{
         String publisher = data.getStringExtra("publisher");
         String publishedDate = data.getStringExtra("publishDate");
         final String webReaderLink = data.getStringExtra("webReaderLink");
-        int pages = data.getIntExtra("pages",0);
 
         setTitle(title);
 
@@ -56,14 +55,6 @@ public class InfoActivity extends AppCompatActivity{
 
         TextView publishedDateTextView = (TextView) findViewById(R.id.date);
         publishedDateTextView.setText(publishedDate);
-
-        TextView pagesTextView = (TextView) findViewById(R.id.pages);
-        if(pages == 0) {
-            pagesTextView.setText("Info not available.");
-        }
-        else {
-            pagesTextView.setText(String.valueOf(pages));
-        }
 
         TextView descriptionTextView = (TextView) findViewById(R.id.description);
         descriptionTextView.setText(description);

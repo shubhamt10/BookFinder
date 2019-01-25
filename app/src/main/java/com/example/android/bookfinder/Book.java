@@ -9,11 +9,10 @@ public class Book {
     private String mDescription;
     private String mPublisher;
     private String mPublishedDate;
-    private int mPages;
     private String mWebReaderLink;
 
     Book(String title,String author,String infoUrl,String imageUrl,String description,String publisher,String publishedDate,
-         String webReaderLink, int pages){
+         String webReaderLink ){
 
         mTitle = title;
         mAuthor = author;
@@ -22,7 +21,6 @@ public class Book {
         mDescription = description;
         mPublisher = publisher;
         mPublishedDate = publishedDate;
-        mPages = pages;
         mWebReaderLink = webReaderLink;
 
     }
@@ -44,8 +42,6 @@ public class Book {
     public String getPublisher() { return mPublisher; }
 
     public String getPublishedDate() { return mPublishedDate; }
-
-    public int getPages() { return mPages; }
 
     public String getWebReaderLink() { return mWebReaderLink; }
 }

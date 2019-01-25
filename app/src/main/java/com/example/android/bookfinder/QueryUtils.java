@@ -149,14 +149,6 @@ public class QueryUtils {
 
                 String infoUrl = info.getString("infoLink");
 
-                int pages;
-                if(info.has("pages")) {
-                    pages = info.getInt("pageCount");
-                }
-                else {
-                    pages = 0;
-                }
-
                 JSONObject accessInfo = book.getJSONObject("accessInfo");
                 String webLink;
                 if(accessInfo.has("webReaderLink")){
@@ -189,7 +181,7 @@ public class QueryUtils {
                     imageUrl = "";
                 }
 
-                books.add(new Book(title,author,infoUrl,imageUrl,description,publisher,publishDate,webLink,pages));
+                books.add(new Book(title,author,infoUrl,imageUrl,description,publisher,publishDate,webLink));
             }
         }
         catch (JSONException e) {

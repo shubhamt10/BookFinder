@@ -35,17 +35,17 @@ public class BookAdapter extends ArrayAdapter<Book>{
         Book currentBook = getItem(position);
         String myUrl = currentBook.getImageUrl();
 
-        ImageView imageView = (ImageView) listItemView.findViewById(R.id.image);
+        ImageView imageView = listItemView.findViewById(R.id.image);
 
         Glide.with(getContext())
                 .load(myUrl)
                 .into(imageView);
 
-        TextView titleTextView = (TextView) listItemView.findViewById(R.id.title_text_view);
+        TextView titleTextView = listItemView.findViewById(R.id.title_text_view);
         String currentTitle = currentBook.getTitle();
         titleTextView.setText(currentTitle);
 
-        TextView authorTextView = (TextView) listItemView.findViewById(R.id.author_text_view);
+        TextView authorTextView = listItemView.findViewById(R.id.author_text_view);
         String currentAuthor = currentBook.getAuthor();
         authorTextView.setText(currentAuthor);
 

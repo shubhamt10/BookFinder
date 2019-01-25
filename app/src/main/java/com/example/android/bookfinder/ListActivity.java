@@ -63,7 +63,6 @@ public class ListActivity extends AppCompatActivity implements LoaderManager.Loa
                 String bookPublisher = currentBook.getPublisher();
                 String bookPublishDate = currentBook.getPublishedDate();
                 String bookWebReaderLink = currentBook.getWebReaderLink();
-                int bookPages = currentBook.getPages();
 
                 Intent intent = new Intent(ListActivity.this,InfoActivity.class);
                 intent.putExtra("Title",bookTitle);
@@ -74,7 +73,6 @@ public class ListActivity extends AppCompatActivity implements LoaderManager.Loa
                 intent.putExtra("publisher",bookPublisher);
                 intent.putExtra("publishDate",bookPublishDate);
                 intent.putExtra("webReaderLink",bookWebReaderLink);
-                intent.putExtra("pages",bookPages);
 
                 startActivityForResult(intent,1);
 
